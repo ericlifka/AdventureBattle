@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdventureBattle</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{BASE_TAG}}
+
+    <link rel="stylesheet" href="assets/vendor.css">
+    <link rel="stylesheet" href="assets/adventure-battle.css">
+  </head>
+  <body>
+    <script>
+      window.AdventureBattleENV = {{ENV}};
+      window.EmberENV = window.AdventureBattleENV.EmberENV;
+    </script>
+    <script src="assets/vendor.js"></script>
+    <script src="assets/adventure-battle.js"></script>
+    <script>
+      window.AdventureBattle = require('adventure-battle/app')['default'].create(AdventureBattleENV.APP);
+    </script>
+  </body>
+</html>
