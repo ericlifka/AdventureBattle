@@ -46,8 +46,7 @@ TurnOrder = Ember.Object.extend
 
         @get('frames').pushObject frame
 
-    _shouldParticipantInNextFrame: (participant) ->
-        frame = participant.currentFrame
+    _shouldParticipantInNextFrame: (participant, frame = participant.currentFrame) ->
         multiplier = participant.multiplier
 
         offset = frame / multiplier
