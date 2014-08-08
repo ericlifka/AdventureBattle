@@ -19,6 +19,7 @@ TurnOrder = Ember.Object.extend
         @_calculateMultipliers()
 
         @_buildNextFrame() for [1..10]
+        window.turns = this
 
 
     _generateInternalData: ->

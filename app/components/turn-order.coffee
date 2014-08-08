@@ -1,3 +1,4 @@
-TurnOrderComponent = Ember.Component.extend {}
+TurnOrderComponent = Ember.Component.extend
+    classNameBindings: [':turn-order-widget']
 
 `export default TurnOrderComponent`

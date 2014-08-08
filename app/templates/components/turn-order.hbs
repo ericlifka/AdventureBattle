@@ -1,1 +1,18 @@
-<span>Turn Order Component: {{model.a}}</span>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Upcoming Turns
+    </div>
+
+    <ul class="list-group">
+        {{#each frame in model.frames}}
+            {{#each participant in frame}}
+                <li class="list-group-item">
+                    {{participant.pokemon.name}}
+                    <small>{{participant.pokemon.type}}</small>
+                </li>
+            {{/each}}
+        {{/each}}
+    </ul>
+
+    <div class="panel-footer"></div>
+</div>
