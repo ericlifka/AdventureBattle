@@ -17,8 +17,9 @@ TurnOrder = Ember.Object.extend
         @_generateInternalData()
         @_sortBySpeed()
         @_calculateMultipliers()
-        @_buildNextFrame()
-        debugger
+
+        @_buildNextFrame() for [1..10]
+
 
     _generateInternalData: ->
         @_participants = ( {pokemon} for pokemon in @get 'participants' )
