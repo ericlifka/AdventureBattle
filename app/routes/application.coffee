@@ -10,12 +10,18 @@ ApplicationRoute = Ember.Route.extend
                     battleStats: {
                         speed: 100
                     }
+                    images: {
+                        icon: "/pokemon/charizard/icon.png"
+                    }
                 }
                 {
                     name: "Squirtle"
                     type: "squirtle"
                     battleStats: {
                         speed: 43
+                    }
+                    images: {
+                        icon: "/pokemon/squirtle/icon.png"
                     }
                 }
             ]

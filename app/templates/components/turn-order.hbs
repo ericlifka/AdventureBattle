@@ -7,6 +7,7 @@
         {{#each frame in model.frames}}
             {{#each participant in frame}}
                 <li class="list-group-item">
+                    <img class="icon" {{bind-attr src=participant.pokemon.images.icon}} />
                     {{participant.pokemon.name}}
                     <small>{{participant.pokemon.type}}</small>
                 </li>
