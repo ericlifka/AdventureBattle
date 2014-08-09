@@ -1,5 +1,10 @@
-html, body {
-    margin: 30px;
+.fill-viewport {
+    height: 100%;
+}
+
+html, body, .ember-view, .container-fluid {
+    .fill-viewport
 }
 
 @import 'turn-order';
+@import 'load-menu';
