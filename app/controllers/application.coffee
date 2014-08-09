@@ -4,4 +4,8 @@ ApplicationController = Ember.Controller.extend
     gameLoaded: Ember.computed 'game', ->
         !!@get 'game'
 
+    actions:
+        newGame: ->
+            console.log 'create new game'
+
 `export default ApplicationController`
