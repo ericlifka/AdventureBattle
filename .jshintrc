@@ -4,7 +4,8 @@
         "window": true,
         "AdventureBattleENV": true,
         "Ember": true,
-        "DS": true
+        "DS": true,
+        "_": true
     },
     "browser": true,
     "boss": true,
