@@ -7,8 +7,8 @@ LoadMenuComponent = Ember.Component.extend
         ]
 
     actions:
-        newGameClicked: ->
-            @sendAction 'new'
+        gameListItemClicked: ->
+            @sendAction 'new', @get 'newGameName'
 
         gameListItemClicked: (game) ->
             @sendAction 'load', game

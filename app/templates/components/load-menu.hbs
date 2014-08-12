@@ -1,5 +1,5 @@
-<div class="load-menu row fill-viewport">
-    <div class="col-md-offset-3 col-md-6 fill-viewport">
+<div class="load-menu row">
+    <div class="col-md-offset-3 col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title">Saved Games</h3>
@@ -12,7 +12,7 @@
             <div class="panel-body">
                 <form class="form-inline" {{action "newGameForm" on="submit"}}>
                     <div class="form-group">
-                        {{input type="text" placeholder="your name" class="form-control"}}
+                        {{input type="text" placeholder="your name" class="form-control" value=newGameName}}
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">
