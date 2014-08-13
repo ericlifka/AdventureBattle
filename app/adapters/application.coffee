@@ -9,10 +9,10 @@ guid = (->
 )()
 
 getKey = (type, id) ->
-    if typoef id is 'object'
+    if typeof id is 'object'
         id = id.get 'id'
 
-    type.typeKey + "#" + model.get 'id'
+    type.typeKey + "#" + id
 
 Promise = Ember.RSVP.Promise
 
@@ -21,7 +21,18 @@ ApplicationAdapter = DS.Adapter.extend
     defaultSerializer: '-rest'
 
     find: (store, type, id) -> new Promise (resolve, reject) ->
-        key = getKey type
+        key = getKey type, id
+        json = localStorage.getItem key
+
+        try
+            result = { }
+            hash = JSON.parse json
+            hash.id = id
+            result[type.typeKey] = hash
+            resolve result
+
+        catch error
+            reject error
 
     findAll: (store, type, sinceToken) ->
 
