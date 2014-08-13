@@ -35,8 +35,10 @@ ApplicationAdapter = DS.Adapter.extend
             reject error
 
     findAll: (store, type, sinceToken) ->
+        throw "I DIDN'T IMPLEMENT THIS SHIT"
 
     findQuery: (store, type, query) ->
+        throw "I DIDN'T IMPLEMENT THIS SHIT"
 
     createRecord: (store, type, record) -> new Promise (resolve) ->
         record.set 'id', guid()
@@ -58,5 +60,6 @@ ApplicationAdapter = DS.Adapter.extend
         resolve()
 
     deleteRecord: (store, type, record) ->
+        throw "I DIDN'T IMPLEMENT THIS SHIT"
 
 `export default ApplicationAdapter`
