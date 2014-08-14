@@ -50,7 +50,7 @@ ApplicationAdapter = DS.Adapter.extend
         value = serialize record, store.serializerFor type.typeKey
 
         localStorage.setItem key, value
-        @saveModelId key, type.typeKey
+        @saveModelId key, type
         resolve()
 
     updateRecord: (store, type, record) -> new Promise (resolve) ->
@@ -63,10 +63,15 @@ ApplicationAdapter = DS.Adapter.extend
     deleteRecord: (store, type, record) ->
         throw "I DIDN'T IMPLEMENT THIS SHIT"
 
-    saveModelId: (id, modelType) ->
-        ids = JSON.parse localStorage.getItem modelType
-        ids ?= []
+    saveModelId: (id, type) ->
+        ids = @getModelIds type
         ids.pushObject id
-        localStorage.setItem modelType, JSON.stringify ids
+        @setModelIds ids, type
+
+    getModelIds: (type) ->
+        JSON.parse(localStorage.getItem(type.typeKey)) or []
+
+    setModelIds: (ids, type) ->
+        localStorage.setItem type.typeKey, JSON.stringify ids
 
 `export default ApplicationAdapter`
