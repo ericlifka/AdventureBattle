@@ -6,6 +6,11 @@ utf8_to_b64 = (str) ->
 b64_to_utf8 = (str) ->
     unescape decodeURIComponent atob str
 
+serialize = (record, serializer) ->
+    object = serializer.serialize record
+    json = JSON.stringify object
+    utf8_to_b64 json
+
 guid = (->
     s4 = ->
         Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
@@ -13,12 +18,6 @@ guid = (->
     return ->
         s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
 )()
-
-getKey = (id) ->
-    if typeof id is 'object'
-        id = id.get 'id'
-
-    "#{id}"
 
 Promise = Ember.RSVP.Promise
 
@@ -47,22 +46,17 @@ ApplicationAdapter = DS.Adapter.extend
         throw "I DIDN'T IMPLEMENT THIS SHIT"
 
     createRecord: (store, type, record) -> new Promise (resolve) ->
-        record.set 'id', guid()
-        serializer = store.serializerFor type.typeKey
-
-        key = getKey record
-        data = serializer.serialize record
-
-        localStorage.setItem key, utf8_to_b64 JSON.stringify data
+        key = guid()
+        value = serialize record, store.serializerFor type.typeKey
+        
+        localStorage.setItem key, value
         resolve()
 
     updateRecord: (store, type, record) -> new Promise (resolve) ->
-        serializer = store.serializerFor type.typeKey
+        key = record.get 'id'
+        value = serialize record, store.serializerFor type.typeKey
 
-        key = getKey record
-        data = serializer.serialize record
-
-        localStorage.setItem key, utf8_to_b64 JSON.stringify data
+        localStorage.setItem key, value
         resolve()
 
     deleteRecord: (store, type, record) ->
