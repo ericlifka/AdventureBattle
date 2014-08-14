@@ -39,8 +39,13 @@ ApplicationAdapter = DS.Adapter.extend
         catch error
             reject error
 
-    findAll: (store, type, sinceToken) ->
-        throw "I DIDN'T IMPLEMENT THIS SHIT"
+    findAll: (store, type) -> new Promise (resolve) =>
+        ids = @getModelIds type
+        promises = _.collect ids, (id) => @find store, type, id
+        Ember.RSVP.all(promises).then (results) ->
+            result = { }
+            result[type.typeKey] = _.pluck results, type.typeKey
+            resolve result
 
     findQuery: (store, type, query) ->
         throw "I DIDN'T IMPLEMENT THIS SHIT"
