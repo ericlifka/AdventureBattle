@@ -1,5 +1,3 @@
-`import Save from '../models/save'`
-
 utf8_to_b64 = (str) ->
     btoa encodeURIComponent escape str
 
@@ -19,11 +17,11 @@ deserialize = (id, encodedJson) ->
     object
 
 guid = (->
-    s4 = ->
-        Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+    s4 = -> Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
+    s8 = -> s4() + s4()
+    s12 = -> s8() + s4()
 
-    return ->
-        s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
+    -> s8() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s12()
 )()
 
 Promise = Ember.RSVP.Promise
@@ -47,11 +45,12 @@ ApplicationAdapter = DS.Adapter.extend
     findQuery: (store, type, query) ->
         throw "I DIDN'T IMPLEMENT THIS SHIT"
 
-    createRecord: (store, type, record) -> new Promise (resolve) ->
+    createRecord: (store, type, record) -> new Promise (resolve) =>
         key = guid()
         value = serialize record, store.serializerFor type.typeKey
 
         localStorage.setItem key, value
+        @saveModelId key, type.typeKey
         resolve()
 
     updateRecord: (store, type, record) -> new Promise (resolve) ->
@@ -63,5 +62,11 @@ ApplicationAdapter = DS.Adapter.extend
 
     deleteRecord: (store, type, record) ->
         throw "I DIDN'T IMPLEMENT THIS SHIT"
+
+    saveModelId: (id, modelType) ->
+        ids = JSON.parse localStorage.getItem modelType
+        ids ?= []
+        ids.pushObject id
+        localStorage.setItem modelType, JSON.stringify ids
 
 `export default ApplicationAdapter`
