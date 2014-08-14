@@ -1,5 +1,11 @@
 `import Save from '../models/save'`
 
+utf8_to_b64 = (str) ->
+    btoa encodeURIComponent escape str
+
+b64_to_utf8 = (str) ->
+    unescape decodeURIComponent atob str
+
 guid = (->
     s4 = ->
         Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
@@ -8,11 +14,11 @@ guid = (->
         s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
 )()
 
-getKey = (type, id) ->
+getKey = (id) ->
     if typeof id is 'object'
         id = id.get 'id'
 
-    type.typeKey + "#" + id
+    "#{id}"
 
 Promise = Ember.RSVP.Promise
 
@@ -21,12 +27,12 @@ ApplicationAdapter = DS.Adapter.extend
     defaultSerializer: '-rest'
 
     find: (store, type, id) -> new Promise (resolve, reject) ->
-        key = getKey type, id
+        key = getKey id
         json = localStorage.getItem key
 
         try
             result = { }
-            hash = JSON.parse json
+            hash = JSON.parse b64_to_utf8 json
             hash.id = id
             result[type.typeKey] = hash
             resolve result
@@ -44,19 +50,19 @@ ApplicationAdapter = DS.Adapter.extend
         record.set 'id', guid()
         serializer = store.serializerFor type.typeKey
 
-        key = getKey type, record
+        key = getKey record
         data = serializer.serialize record
 
-        localStorage.setItem key, JSON.stringify data
+        localStorage.setItem key, utf8_to_b64 JSON.stringify data
         resolve()
 
     updateRecord: (store, type, record) -> new Promise (resolve) ->
         serializer = store.serializerFor type.typeKey
 
-        key = getKey type, record
+        key = getKey record
         data = serializer.serialize record
 
-        localStorage.setItem key, JSON.stringify data
+        localStorage.setItem key, utf8_to_b64 JSON.stringify data
         resolve()
 
     deleteRecord: (store, type, record) ->
