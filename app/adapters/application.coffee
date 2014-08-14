@@ -52,6 +52,7 @@ ApplicationAdapter = DS.Adapter.extend
 
     createRecord: (store, type, record) -> new Promise (resolve) =>
         key = guid()
+        record.id = key
         value = serialize record, store.serializerFor type.typeKey
 
         localStorage.setItem key, value
