@@ -9,7 +9,14 @@ b64_to_utf8 = (str) ->
 serialize = (record, serializer) ->
     object = serializer.serialize record
     json = JSON.stringify object
-    utf8_to_b64 json
+    encodedJson = utf8_to_b64 json
+    encodedJson
+
+deserialize = (id, encodedJson) ->
+    json = b64_to_utf8 encodedJson
+    object = JSON.parse json
+    object.id = id
+    object
 
 guid = (->
     s4 = ->
@@ -26,14 +33,9 @@ ApplicationAdapter = DS.Adapter.extend
     defaultSerializer: '-rest'
 
     find: (store, type, id) -> new Promise (resolve, reject) ->
-        key = getKey id
-        json = localStorage.getItem key
-
         try
             result = { }
-            hash = JSON.parse b64_to_utf8 json
-            hash.id = id
-            result[type.typeKey] = hash
+            result[type.typeKey] = deserialize id, localStorage.getItem id
             resolve result
 
         catch error
@@ -48,7 +50,7 @@ ApplicationAdapter = DS.Adapter.extend
     createRecord: (store, type, record) -> new Promise (resolve) ->
         key = guid()
         value = serialize record, store.serializerFor type.typeKey
-        
+
         localStorage.setItem key, value
         resolve()
 
