@@ -1,29 +1,16 @@
 `import TurnOrder from '../models/turn-order'`
 
 ApplicationRoute = Ember.Route.extend
-    model: ->
-        return TurnOrder.create
-            participants: [
-                {
-                    name: "Charizzle"
-                    type: "charizard"
-                    battleStats: {
-                        speed: 100
-                    }
-                    images: {
-                        icon: "/pokemon/charizard/icon.png"
-                    }
-                }
-                {
-                    name: "Squirtle"
-                    type: "squirtle"
-                    battleStats: {
-                        speed: 43
-                    }
-                    images: {
-                        icon: "/pokemon/squirtle/icon.png"
-                    }
-                }
-            ]
+    beforeModel: ->
+        if not @game.active
+            @transitionTo 'load'
+
+    actions:
+        willTransition: ->
+            if not @game.active
+                @transitionTo 'load'
+
+        gameLoaded: ->
+            @transitionTo 'index'
 
 `export default ApplicationRoute`
