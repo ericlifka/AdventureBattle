@@ -2,12 +2,12 @@
 
 ApplicationRoute = Ember.Route.extend
     beforeModel: ->
-        if not @game.active
+        if not @game.get 'active'
             @transitionTo 'load'
 
     actions:
         willTransition: ->
-            if not @game.active
+            if not @game.get 'active'
                 @transitionTo 'load'
 
         gameLoaded: ->
