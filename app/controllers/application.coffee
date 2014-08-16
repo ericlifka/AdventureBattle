@@ -4,6 +4,9 @@ ApplicationController = Ember.Controller.extend
     gameLoaded: Ember.computed 'game', ->
         !!@get 'game'
 
+    notOnLoading: Ember.computed 'currentRouteName', ->
+        'load' isnt @get 'currentRouteName'
+
     actions:
         newGame: ->
             console.log 'create new game'
