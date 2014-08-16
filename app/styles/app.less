@@ -4,9 +4,16 @@
     height: 100%;
 }
 
-html, body, .ember-view, .container-fluid {
-    .fill-viewport
+.viewport {
+    .fill-viewport;
+
+    padding-left: 200px;
 }
 
+html, body, .ember-view, .container-fluid , .container {
+    .fill-viewport;
+}
+
+@import 'nav-menu';
 @import 'turn-order';
 @import 'load-menu';
