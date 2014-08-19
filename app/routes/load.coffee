@@ -1,5 +1,5 @@
 LoadRoute = Ember.Route.extend
     model: ->
-        @store.findAll 'save'
+        @store.findAll 'trainer'
 
 `export default LoadRoute`

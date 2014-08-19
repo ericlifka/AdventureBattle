@@ -1,7 +1,8 @@
 PokemonModel = DS.Model.extend
     breed: DS.attr 'string'
     nickname: DS.attr 'string'
-    owner: DS.belongsTo 'save',
+
+    trainer: DS.belongsTo 'trainer',
         inverse: 'ownedPokemon'
         async: true
 

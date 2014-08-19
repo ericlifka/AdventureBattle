@@ -1,6 +1,6 @@
 GameService = Ember.Object.extend
-    loadedGameModel: null
-    active: Ember.computed 'loadedGameModel', ->
-        !!@get 'loadedGameModel'
+    loadedTrainerModel: null
+    active: Ember.computed 'loadedTrainerModel', ->
+        !!@get 'loadedTrainerModel'
 
 `export default GameService`

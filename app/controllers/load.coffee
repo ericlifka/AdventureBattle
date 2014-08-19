@@ -3,7 +3,7 @@ LoadController = Ember.ArrayController.extend
         gameListItemClicked: (id) ->
             @store.find 'save', id
                 .then (save) =>
-                    @game.set 'loadedGameModel', save
+                    @game.set 'loadedTrainerModel', save
                     @send 'gameLoaded'
 
         newGameForm: ->
@@ -13,10 +13,10 @@ LoadController = Ember.ArrayController.extend
                 return
 
             @set 'hasError', false
-            save = @store.createRecord 'save', { name }
-            save.save().then =>
+            trainer = @store.createRecord 'trainer', { name }
+            trainer.save().then =>
                 @set 'newGameName', ''
-                @game.set 'loadedGameModel', save
+                @game.set 'loadedTrainerModel', trainer
                 @send 'gameLoaded'
 
 `export default LoadController`
