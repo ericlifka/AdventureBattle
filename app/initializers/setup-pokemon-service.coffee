@@ -7,3 +7,5 @@ GameServiceInitializer =
 
         app.inject 'controller', 'pokemon', 'service:pokemon'
         app.inject 'component', 'pokemon', 'service:pokemon'
+
+`export default GameServiceInitializer`
