@@ -1,6 +1,6 @@
 `import breeds from '../helpers/breeds'`
 
-breedDescription = (pokemon) ->
+getBreedDescription = (pokemon) ->
     if typeof pokemon is 'object' and pokemon.get?
         pokemon = pokemon.get 'breed'
 
@@ -42,25 +42,28 @@ randomGene = (strength) ->
     _.sample list
 
 PokemonService = Ember.Object.extend
-    generateWild: (breedName, level) ->
+    generateWild: (breedName, targetLevel) ->
         level = 0
-        breed = breedDescription breedName
+        breedDescription = getBreedDescription breedName
+        breed = breedDescription.name
         stats = startingStats()
         genes = randomGenes()
 
         pokemon = @store.createRecord 'pokemon', { level, breed, stats, genes }
-        @levelUp pokemon for [1..level]
+        @levelUp pokemon for [0...targetLevel]
+        pokemon
 
     levelUp: (pokemon) ->
         changes = { }
-        breed = breedDescription pokemon
+        breed = getBreedDescription pokemon
 
         Ember.changeProperties =>
             for stat in statNames
                 bonus = breed.stats[stat] / 50
                 bonus += 1 if stat is 'hp'
-                pokemon.stats[stat] += bonus
+                pokemon.get('stats')[stat] += bonus
                 changes[stat] = bonus
+            null
 
         changes
 
