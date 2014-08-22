@@ -1,7 +1,7 @@
 PokemonModel = DS.Model.extend
-    nickname: DS.attr 'string'
-
-    breed: DS.attr 'string'
+    nickname: DS.attr()
+    level: DS.attr()
+    breed: DS.attr()
     stats: DS.attr()
     genes: DS.attr()
 
