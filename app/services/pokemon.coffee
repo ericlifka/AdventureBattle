@@ -1,9 +1,13 @@
 `import breeds from '../helpers/breeds'`
 
-breedDescription = (name) ->
-    if not breeds.hasOwnProperty name
-        throw error: "Unknown Breed: #{name}"
-    breeds[name]
+breedDescription = (pokemon) ->
+    if typeof pokemon is 'object' and pokemon.get?
+        pokemon = pokemon.get 'breed'
+
+    if not breeds.hasOwnProperty pokemon
+        throw error: "Unknown Breed: #{pokemon}"
+
+    breeds[pokemon]
 
 statNames = [
     'hp'
@@ -45,11 +49,20 @@ PokemonService = Ember.Object.extend
         genes = randomGenes()
 
         pokemon = @store.createRecord 'pokemon', { level, breed, stats, genes }
-
         @levelUp pokemon for [1..level]
 
     levelUp: (pokemon) ->
+        changes = { }
+        breed = breedDescription pokemon
 
+        Ember.changeProperties =>
+            for stat in statNames
+                bonus = breed.stats[stat] / 50
+                bonus += 1 if stat is 'hp'
+                pokemon.stats[stat] += bonus
+                changes[stat] = bonus
+
+        changes
 
 `export default PokemonService`
 
