@@ -1,6 +1,6 @@
 `import breeds from '../helpers/breeds'`
 
-stats = [
+statNames = [
     'hp'
     'attack'
     'defense'
@@ -19,7 +19,7 @@ startingStats = ->
 
 randomGenes = (strength = 'weak') ->
     genes = { }
-    for stat in stats
+    for stat in statNames
         genes[stat] = randomGene strength
 
     genes
@@ -32,20 +32,20 @@ randomGene = (strength) ->
 
     _.sample list
 
-advanceToLevel = (stats, breed) ->
-    false
-
 PokemonService = Ember.Object.extend
     generateWild: (breed, level) ->
-        if not breeds.hashOwnProperty breed
+        if not breeds.hasOwnProperty breed
             throw error: "Unknown Breed: #{breed}"
 
         breed = breeds[breed]
-        stats = startingStatus()
+        stats = startingStats()
         genes = randomGenes()
-        
 
-        levelUp() for [1..level]
+        pokemon = @store.createRecord 'pokemon', { breed, stats, genes }
+        pokemon.save()
+
+
+#        levelUp() for [1..level]
 
 `export default PokemonService`
 
