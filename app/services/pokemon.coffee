@@ -1,5 +1,13 @@
 `import breeds from '../helpers/breeds'`
 
+###
+        0   1   2   3   4   5   6   7   8   9
+        80  85  90  95  100 105 110 115 120 125
+weak   [---------]
+medium [-------------]
+strong [-----------------]
+###
+
 getBreedDescription = (pokemon) ->
     if typeof pokemon is 'object' and pokemon.get?
         pokemon = pokemon.get 'breed'
@@ -33,6 +41,14 @@ randomGenes = (strength = 'weak') ->
 
     genes
 
+modifiers = [.8, .85, .9, .95, 1, 1.05, 1.1, 1.15, 1.2, 1.25]
+
+geneToModifier = (gene) ->
+    if 0 <= gene <= 9
+        modifiers[gene]
+    else
+        modifiers[0]
+
 randomGene = (strength) ->
     list = switch strength
         when 'weak' then [0, 1, 2]
@@ -44,7 +60,7 @@ randomGene = (strength) ->
 PokemonService = Ember.Object.extend
     generateWild: (breedName, targetLevel) ->
         level = 0
-        breedDescription = getBreedDescription breedName
+        breedDescription = getBreedDescription(breedName)
         breed = breedDescription.name
         stats = startingStats()
         genes = randomGenes()
@@ -61,6 +77,7 @@ PokemonService = Ember.Object.extend
             for stat in statNames
                 bonus = breed.stats[stat] / 50
                 bonus += 1 if stat is 'hp'
+                bonus *= geneToModifier(pokemon.get('genes')[stat])
                 pokemon.get('stats')[stat] += bonus
                 changes[stat] = bonus
             null
@@ -68,11 +85,3 @@ PokemonService = Ember.Object.extend
         changes
 
 `export default PokemonService`
-
-###
-        0   1   2   3   4   5   6   7   8   9
-        80  85  90  95  100 105 110 115 120 125
-weak   [---------]
-medium [-------------]
-strong [-----------------]
-###
