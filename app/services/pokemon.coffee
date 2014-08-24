@@ -57,6 +57,8 @@ randomGene = (strength) ->
 
     _.sample list
 
+inheritGenes = (father, mother) ->
+
 randomGender = (breed) ->
     #TODO: needs to check for breeds with non normal distributions
     _.sample ['male', 'female']
@@ -94,9 +96,21 @@ PokemonService = Ember.Object.extend
             throw "It takes two to tango"
         if father.get('gender') isnt 'male' or mother.get('gender') isnt 'female'
             throw "Gender mismatch, one male and one female required for mating"
-        if not breedsAreCompatible(father.get('breed'), mother.get('breed'))
+
+        fathersBreed = father.get 'breed'
+        mothersBreed = mother.get 'breed'
+
+        if not breedsAreCompatible(fathersBreed, mothersBreed)
             throw "Breeds aren't compatible for breeding"
 
-        
+        #TODO: implement mutations
+        breed = _.sample [fathersBreed, mothersBreed]
+        stats = startingStats()
+        genes = inheritGenes(father, mother)
+        gender = randomGender(breed)
+        level = 0
+
+        @store.createRecord 'pokemon', { level, breed, stats, genes, gender }
+
 
 `export default PokemonService`
