@@ -89,4 +89,14 @@ PokemonService = Ember.Object.extend
 
         changes
 
+    mate: (father, mother) ->
+        if not father or not mother
+            throw "It takes two to tango"
+        if father.get('gender') isnt 'male' or mother.get('gender') isnt 'female'
+            throw "Gender mismatch, one male and one female required for mating"
+        if not breedsAreCompatible(father.get('breed'), mother.get('breed'))
+            throw "Breeds aren't compatible for breeding"
+
+        
+
 `export default PokemonService`
