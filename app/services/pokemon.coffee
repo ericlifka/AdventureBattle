@@ -57,6 +57,10 @@ randomGene = (strength) ->
 
     _.sample list
 
+randomGender = (breed) ->
+    #TODO: needs to check for breeds with non normal distributions
+    _.sample ['male', 'female']
+
 PokemonService = Ember.Object.extend
     generateWild: (breedName, targetLevel) ->
         level = 0
@@ -64,8 +68,9 @@ PokemonService = Ember.Object.extend
         breed = breedDescription.name
         stats = startingStats()
         genes = randomGenes()
+        gender = randomGender(breed)
 
-        pokemon = @store.createRecord 'pokemon', { level, breed, stats, genes }
+        pokemon = @store.createRecord 'pokemon', { level, breed, stats, genes, gender }
         @levelUp pokemon for [0...targetLevel]
         pokemon
 

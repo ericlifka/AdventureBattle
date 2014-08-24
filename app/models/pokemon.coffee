@@ -4,6 +4,7 @@ PokemonModel = DS.Model.extend
     breed: DS.attr()
     stats: DS.attr()
     genes: DS.attr()
+    gender: DS.attr()
 
     trainer: DS.belongsTo 'trainer',
         inverse: 'ownedPokemon'
