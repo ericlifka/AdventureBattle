@@ -58,6 +58,14 @@ randomGene = (strength) ->
     _.sample list
 
 inheritGenes = (father, mother) ->
+    genes = { }
+    for stat in statNames
+        base = (father.get('genes')[stat] + mother.get('genes')[stat]) / 2
+        randomized = Math.round _.random(base - 1, base + 1)
+        randomized = 0 if randomized < 0
+        randomized = 9 if randomized > 9
+        genes[stat] = randomized
+    genes
 
 randomGender = (breed) ->
     #TODO: needs to check for breeds with non normal distributions
