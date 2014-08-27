@@ -3,10 +3,10 @@
 `import venusaur from './breeds/venusaur'`
 `import charmander from './breeds/charmander'`
 `import charmeleon from './breeds/charmeleon'`
-
-
-
-
+`import charizard from './breeds/charizard'`
+`import squirtle from './breeds/squirtle'`
+`import wartortle from './breeds/wartortle'`
+`import blastoise from './breeds/blastoise'`
 
 
 
@@ -21,6 +21,10 @@ breeds = {
     venusaur
     charmander
     charmeleon
+    charizard
+    squirtle
+    wartortle
+    blastoise
 
     pidgey
 }
