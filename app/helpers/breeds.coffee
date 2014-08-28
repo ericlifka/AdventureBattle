@@ -7,9 +7,9 @@
 `import squirtle from './breeds/squirtle'`
 `import wartortle from './breeds/wartortle'`
 `import blastoise from './breeds/blastoise'`
-
-
-
+`import caterpie from './breeds/caterpie'`
+`import metapod from './breeds/metapod'`
+`import butterfree from './breeds/butterfree'`
 
 
 
