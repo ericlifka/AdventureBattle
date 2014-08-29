@@ -10,9 +10,9 @@
 `import caterpie from './breeds/caterpie'`
 `import metapod from './breeds/metapod'`
 `import butterfree from './breeds/butterfree'`
-
-
-
+`import weedle from './breeds/weedle'`
+`import kakuna from './breeds/kakuna'`
+`import beedrill from './breeds/beedrill'`
 `import pidgey from './breeds/pidgey'`
 
 breeds = {
@@ -25,7 +25,9 @@ breeds = {
     squirtle
     wartortle
     blastoise
-
+    weedle
+    kakuna
+    beedrill
     pidgey
 }
 
