@@ -14,6 +14,8 @@
 `import kakuna from './breeds/kakuna'`
 `import beedrill from './breeds/beedrill'`
 `import pidgey from './breeds/pidgey'`
+`import pidgeotto from './breeds/pidgeotto'`
+`import pidgeot from './breeds/pidgeot'`
 
 breeds = {
     bulbasaur
@@ -29,6 +31,8 @@ breeds = {
     kakuna
     beedrill
     pidgey
+    pidgeotto
+    pidgeot
 }
 
 `export default breeds`
