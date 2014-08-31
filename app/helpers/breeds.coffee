@@ -16,6 +16,8 @@
 `import pidgey from './breeds/pidgey'`
 `import pidgeotto from './breeds/pidgeotto'`
 `import pidgeot from './breeds/pidgeot'`
+`import rattata from './breeds/rattata'`
+`import raticate from './breeds/raticate'`
 
 breeds = {
     bulbasaur
@@ -33,6 +35,8 @@ breeds = {
     pidgey
     pidgeotto
     pidgeot
+    rattata
+    raticate
 }
 
 `export default breeds`

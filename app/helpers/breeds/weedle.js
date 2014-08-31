@@ -5,7 +5,7 @@ export default {
     stats: {
         hp: 40,
         attack: 35,
-        defense: 330,
+        defense: 33,
         spAttack: 20,
         spDefense: 20,
         speed: 50
