@@ -1,6 +1,6 @@
 # Adventure-battle
 
-This README outlines the details of collaborating on this Ember application.
+Web game exploring a deeper pokemon system emphasizing breeding for strength and variety, and tactical style battles.
 
 ## Installation
 
