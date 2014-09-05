@@ -22,6 +22,8 @@
 `import fearow from './breeds/fearow'`
 `import ekans from './breeds/ekans'`
 `import arbok from './breeds/arbok'`
+`import pikachu from './breeds/pikachu'`
+`import raichu from './breeds/raichu'`
 
 breeds = {
     bulbasaur
@@ -45,6 +47,8 @@ breeds = {
     fearow
     ekans
     arbok
+    pikachu
+    raichu
 }
 
 `export default breeds`
