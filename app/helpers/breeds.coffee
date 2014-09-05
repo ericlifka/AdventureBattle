@@ -20,6 +20,8 @@
 `import raticate from './breeds/raticate'`
 `import spearow from './breeds/spearow'`
 `import fearow from './breeds/fearow'`
+`import ekans from './breeds/ekans'`
+`import arbok from './breeds/arbok'`
 
 breeds = {
     bulbasaur
@@ -41,6 +43,8 @@ breeds = {
     raticate
     spearow
     fearow
+    ekans
+    arbok
 }
 
 `export default breeds`
