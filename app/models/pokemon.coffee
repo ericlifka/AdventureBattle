@@ -5,6 +5,7 @@ PokemonModel = DS.Model.extend
     stats: DS.attr()
     genes: DS.attr()
     gender: DS.attr()
+    heritage: DS.attr()
 
     trainer: DS.belongsTo 'trainer',
         inverse: 'ownedPokemon'

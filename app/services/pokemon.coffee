@@ -71,6 +71,9 @@ randomGender = (breed) ->
     #TODO: needs to check for breeds with non normal distributions
     _.sample ['male', 'female']
 
+getMatedHeritage = (father, mother) ->
+
+
 PokemonService = Ember.Object.extend
     generateWild: (breedName, targetLevel) ->
         level = 0
@@ -79,8 +82,10 @@ PokemonService = Ember.Object.extend
         stats = startingStats()
         genes = randomGenes()
         gender = randomGender(breed)
+        heritage = { }
+        heritage[breed] = 1.0
 
-        pokemon = @store.createRecord 'pokemon', { level, breed, stats, genes, gender }
+        pokemon = @store.createRecord 'pokemon', { level, breed, stats, genes, gender, heritage }
         @levelUp pokemon for [0...targetLevel]
         pokemon
 
@@ -117,6 +122,8 @@ PokemonService = Ember.Object.extend
         genes = inheritGenes(father, mother)
         gender = randomGender(breed)
         level = 0
+        heritage = getMatedHeritage(father, mother)
+
 
         @store.createRecord 'pokemon', { level, breed, stats, genes, gender }
 
