@@ -110,19 +110,22 @@ PokemonService = Ember.Object.extend
         if father.get('gender') isnt 'male' or mother.get('gender') isnt 'female'
             throw "Gender mismatch, one male and one female required for mating"
 
-        fathersBreed = father.get 'breed'
-        mothersBreed = mother.get 'breed'
+        egg = @store.createRecord 'egg', { father, mother }
+        egg.save()
 
-        if not breedsAreCompatible(fathersBreed, mothersBreed)
-            throw "Breeds aren't compatible for breeding"
-
-        #TODO: implement mutations
-        breed = _.sample [fathersBreed, mothersBreed]
-        stats = startingStats()
-        genes = inheritGenes(father, mother)
-        gender = randomGender(breed)
-        level = 0
-        heritage = getMatedHeritage(father, mother)
+#        fathersBreed = father.get 'breed'
+#        mothersBreed = mother.get 'breed'
+#
+#        if not breedsAreCompatible(fathersBreed, mothersBreed)
+#            throw "Breeds aren't compatible for breeding"
+#
+#        #TODO: implement mutations
+#        breed = _.sample [fathersBreed, mothersBreed]
+#        stats = startingStats()
+#        genes = inheritGenes(father, mother)
+#        gender = randomGender(breed)
+#        level = 0
+#        heritage = getMatedHeritage(father, mother)
 
 
         @store.createRecord 'pokemon', { level, breed, stats, genes, gender }
