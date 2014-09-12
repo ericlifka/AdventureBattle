@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>pixi.js example 1</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000000;
+        }
+    </style>
+    <script src="../pixi.dev.js"></script>
+</head>
+
+<body>
+<script>
+    var animate = function () {
+        requestAnimFrame(animate);
+        bunny.rotation += 0.1;
+        renderer.render(stage);
+    };
+
+    var stage = new PIXI.Stage(0x66FF99);
+    var renderer = new PIXI.WebGLRenderer(400, 300);
+
+    document.body.appendChild(renderer.view);
+    requestAnimFrame(animate);
+
+    var texture = PIXI.Texture.fromImage("../bunny.png");
+    var bunny = new PIXI.Sprite(texture);
+
+    bunny.anchor.x = 0.5;
+    bunny.anchor.y = 0.5;
+    bunny.position.x = 200;
+    bunny.position.y = 150;
+    stage.addChild(bunny);
+
+    document.body.onkeydown = function (event) {
+        if (event.keyCode === 37) { // LEFT
+            bunny.position.x -= 1;
+        }
+        if (event.keyCode === 38) { // UP
+            bunny.position.y -= 1;
+        }
+        if (event.keyCode === 39) { // RIGHT
+            bunny.position.x += 1;
+        }
+        if (event.keyCode === 40) { // DOWN
+            bunny.position.y += 1;
+        }
+    };
+</script>
+</body>
+
+</html>
