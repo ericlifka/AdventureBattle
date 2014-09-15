@@ -1,5 +1,8 @@
 {
-	"dependencies": {
-		"express": "*"
-	}
+  "dependencies": {
+    "express": "*"
+  },
+  "devDependencies": {
+    "coffee-middleware": "^0.2.1"
+  }
 }
