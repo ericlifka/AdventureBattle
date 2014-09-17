@@ -15,5 +15,13 @@
 </div>
 
 <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+
+<script>
+    window.onload = function () {
+        var game = new AdventureBattle();
+        game.start();
+    };
+</script>
+
 </body>
 </html>
