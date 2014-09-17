@@ -5,3 +5,4 @@ class AdventureBattle
     start: ->
         console.log "AdventureBattle start"
 
+window.AdventureBattle = AdventureBattle
