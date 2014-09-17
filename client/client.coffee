@@ -1,8 +1,7 @@
-class AdventureBattle
+window.AdventureBattle = class AdventureBattle
     constructor: ->
         console.log "AdventureBattle constructor"
 
     start: ->
         console.log "AdventureBattle start"
-
-window.AdventureBattle = AdventureBattle
+        
