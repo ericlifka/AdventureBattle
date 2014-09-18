@@ -2,10 +2,13 @@ window.AdventureBattle = class AdventureBattle
     constructor: ->
 
     start: ->
-        Authorization.requestSession().then (player) =>
-            if player
-                @setupGame()
-            else
-                DomView.showLogin()
+        authenticated = (player) =>
+            @player = player
+            @setupGame()
+
+        Authorization.requestSession()
+            .then authenticated
+            .catch =>
+                DomView.showLogin().then authenticated
 
     setupGame: ->
