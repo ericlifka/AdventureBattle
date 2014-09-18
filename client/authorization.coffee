@@ -1,4 +1,3 @@
 Authorization =
-    requestSession: ->
-        new RSVP.Promise (resolve, reject) ->
+    requestSession: -> new RSVP.Promise (resolve, reject) =>
             reject()
