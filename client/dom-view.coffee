@@ -1,0 +1,2 @@
+DomView =
+    showLogin: ->
