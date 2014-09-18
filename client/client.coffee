@@ -1,5 +1,10 @@
 window.AdventureBattle = class AdventureBattle
-    constructor: ->
+    viewport: null
+    player: null
+
+    constructor: (viewport) ->
+        @viewport = $(viewport)
+        DomView.setupContext @viewport
 
     start: ->
         authenticated = (player) =>
