@@ -14,13 +14,14 @@
     </div>
 </div>
 
+<script type="text/javascript" src="{{ url_for('static', filename='lib/jquery-2.1.1.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
 
 <script>
-    window.onload = function () {
+    $(function () {
         var game = new AdventureBattle();
         game.start();
-    };
+    });
 </script>
 
 </body>
