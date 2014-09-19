@@ -15,30 +15,31 @@ DomView =
 
     setupContext: (@viewport) ->
 
-    showLogin: -> new RSVP.Promise (resolve, reject) =>
+    showLogin: -> new RSVP.Promise (resolve) =>
         @renderLoginForm()
         @loginForm.on 'submit', (event) =>
             event.preventDefault()
-
-            username = $("#username").val()
-            password = $("#password").val()
-
-            $.post '/login', {username, password}
-                .done (data, status) =>
-                    console.log 'success', arguments
-                .fail (request, error, message) =>
-                    $('#loginError')
-                        .text "Error logging in"
-                        .addClass 'visible'
-
-                    $("#username").val null
-                    $("#password").val null
-
-            return false
-
-        resolve()
+            @processLogin resolve
+            false
 
     renderLoginForm: ->
         @loginForm = $(loginFormTemplate)
         @viewport.append @loginForm
         $("#username").focus()
+
+    processLogin: (resolve) ->
+        $username = $("#username")
+        $password = $("#password")
+        $error = $("#loginError")
+
+        Authorization.login $username.val(), $password.val()
+            .then (player) ->
+                @loginForm.remove()
+                @loginForm = null
+                resolve player
+
+            .catch ->
+                $error.addClass 'visible'
+                $error.text "Error logging in"
+                $username.val null
+                $password.val null
