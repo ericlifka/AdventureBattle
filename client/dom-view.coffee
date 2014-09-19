@@ -16,9 +16,13 @@ DomView =
 
     showLogin: -> new RSVP.Promise (resolve, reject) =>
         @renderLoginForm()
+        @loginForm.on 'submit', =>
+            username = $("#username").val()
+            password = $("#password").val()
 
         resolve()
 
     renderLoginForm: ->
         @loginForm = $(loginFormTemplate)
         @viewport.append @loginForm
+        $("#username").focus()
