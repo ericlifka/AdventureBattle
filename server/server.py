@@ -5,7 +5,7 @@ from flask import make_response
 
 app = Flask(__name__)
 
-users = {'test': 1234}
+users = {'test': '1234'}
 
 @app.route("/")
 def hello():
@@ -15,11 +15,6 @@ def hello():
 def login():
     username = request.form['username']
     password = request.form['password']
-    print username
-    print password
-    print users[username]
-    print username in users
-    print users[username] == password
 
     if username in users and users[username] == password:
         return make_response(('success', '201'))
