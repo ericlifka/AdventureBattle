@@ -73,6 +73,17 @@ html, body {
     text-decoration: none;
 }
 
+#loginForm button.link {
+    background-color: transparent;
+    border-color: transparent;
+    color: #428bca;
+}
+
+#loginForm button.link:hover {
+    text-decoration: underline;
+    color: #2a6496;
+}
+
 #loginError {
     display: none;
     font-weight: 700;

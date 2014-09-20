@@ -6,6 +6,7 @@ loginFormTemplate =
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
         <button type="submit" role="button">Login</button>
+        <button type="button" role="button" class="link">Register</button>
     </form>
 </div>
 """
