@@ -13,7 +13,7 @@ window.AdventureBattle = class AdventureBattle
 
         Authorization.requestSession()
             .then authenticated
-            .catch -> DomView.showLogin()
-                .then authenticated
+            .catch ->
+                DomView.showLogin().then authenticated
 
     setupGame: ->

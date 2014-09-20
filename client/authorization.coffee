@@ -1,6 +1,8 @@
 Authorization =
     requestSession: -> new RSVP.Promise (resolve, reject) =>
-            reject()
+        $.get '/session'
+            .done (userJson) -> resolve JSON.parse userJson
+            .fail -> reject()
 
     login: (username, password) -> new RSVP.Promise (resolve, reject) =>
         $.post '/login', { username, password }
