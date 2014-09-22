@@ -59,23 +59,36 @@ DomView =
         $error = $("#loginError")
 
         Authorization.login $username.val(), $password.val()
-            .then (player) ->
+            .then (player) =>
                 @loginForm.remove()
                 @loginForm = null
                 resolve player
 
-            .catch ->
+            .catch =>
+                @clearFormValues()
                 $error.addClass 'visible'
                 $error.text "Error logging in"
-                @clearFormValues()
 
-    processRegister: ->
+    processRegister: (resolve) ->
         username = $('#registerUsername').val()
         password = $('#registerPassword').val()
         repeat = $('#passwordRepeat').val()
+        $error = $('#registerError')
 
-        if password isnt repeat
-            $('#registerError').addClass('visible').text 'Passwords must match'
+        if password isnt repeat or not password or not repeat
+            $error.addClass('visible').text 'Passwords must match'
+            return
+
+        Authorization.register username, password
+            .then (player) =>
+                @loginForm.remove()
+                @loginForm = null
+                resolve player
+
+            .catch =>
+                @clearFormValues()
+                $error.addClass 'visible'
+                $error.text "Couldn't register"
 
     switchToRegister: ->
         @clearFormValues()

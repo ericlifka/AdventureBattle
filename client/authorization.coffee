@@ -8,3 +8,6 @@ Authorization =
         $.post '/login', { username, password }
             .done -> resolve { username }
             .fail -> reject()
+
+    register: (username, password) -> new RSVP.Promise (resolve, reject) =>
+        reject()
