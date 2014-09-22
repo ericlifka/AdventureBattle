@@ -88,7 +88,7 @@ html, body {
     color: #2a6496;
 }
 
-#error {
+.auth-form .error {
     display: none;
     font-weight: 700;
     color: #a94442;
@@ -96,6 +96,6 @@ html, body {
     text-align: center;
 }
 
-#error.visible {
+.auth-form .error.visible {
     display: block;
 }

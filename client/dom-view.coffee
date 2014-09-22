@@ -2,7 +2,7 @@ authFormTemplate =
 """
 <div class='auth-modal'>
     <form id="loginForm" class="auth-form" role="form">
-        <div id="error"></div>
+        <div class="error" id="loginError"></div>
         <input type="text" id="loginUsername" placeholder="username">
         <input type="password" id="loginPassword" placeholder="password">
         <button type="submit">Login</button>
@@ -10,7 +10,7 @@ authFormTemplate =
     </form>
 
     <form id="registerForm" class="auth-form hidden" role="form">
-        <div id="error"></div>
+        <div class="error" id="registerError"></div>
         <input type="text" id="registerUsername" placeholder="username">
         <input type="password" id="registerPassword" placeholder="password">
         <input type="password" id="passwordRepeat" placeholder="re-enter password">
@@ -27,12 +27,20 @@ DomView =
 
     showLogin: -> new RSVP.Promise (resolve) =>
         @renderLoginForm()
-        @loginForm.on 'submit', (event) =>
+
+        $('#loginForm').on 'submit', (event) =>
             event.preventDefault()
             @processLogin resolve
             false
+
+        $('#registerForm').on 'submit', (event) =>
+            event.preventDefault()
+            @processRegister()
+            false
+
         $('#register').on 'click', =>
             @switchToRegister()
+
         $('#cancelRegister').on 'click', =>
             @switchToLogin()
 
@@ -48,7 +56,7 @@ DomView =
     processLogin: (resolve) ->
         $username = $("#loginUsername")
         $password = $("#loginPassword")
-        $error = $("#error")
+        $error = $("#loginError")
 
         Authorization.login $username.val(), $password.val()
             .then (player) ->
@@ -60,6 +68,14 @@ DomView =
                 $error.addClass 'visible'
                 $error.text "Error logging in"
                 @clearFormValues()
+
+    processRegister: ->
+        username = $('#registerUsername').val()
+        password = $('#registerPassword').val()
+        repeat = $('#passwordRepeat').val()
+
+        if password isnt repeat
+            $('#registerError').addClass('visible').text 'Passwords must match'
 
     switchToRegister: ->
         @clearFormValues()
@@ -79,3 +95,5 @@ DomView =
         $('#registerUsername').val null
         $('#registerPassword').val null
         $('#passwordRepeat').val null
+        $('#registerError').removeClass('visible').text ''
+        $('#loginError').removeClass('visible').text ''
