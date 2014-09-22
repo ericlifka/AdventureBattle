@@ -1,13 +1,20 @@
 import json
-
+import sqlite3
 from flask import Flask
 from flask import render_template
 from flask import request
 from flask import make_response
 from flask import session
 
+def setupUsersTable():
+    connection = sqlite3.connect('.data.db')
+    cursor = connection.cursor()
+
+    cursor.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT)")
+    connection.commit()
+
 app = Flask(__name__)
-users = {'test': '1234'}
+# users = {'test': '1234'}
 
 @app.route("/")
 def hello():
@@ -30,7 +37,10 @@ def login():
     username = request.form['username']
     password = request.form['password']
 
-    if username in users and users[username] == password:
+    connection = sqlite3.connect('.data.db')
+    cursor = connection.cursor()
+    cursor.execute('SELECT * FROM users WHERE username=? AND password=?', (username, password))
+    if cursor.fetchone():
         session['username'] = username
         return make_response(('success', 201))
     else:
@@ -41,10 +51,15 @@ def register():
     username = request.form['username']
     password = request.form['password']
 
-    if username in users:
+    connection = sqlite3.connect('.data.db')
+    cursor = connection.cursor()
+    print(username)
+    cursor.execute('SELECT * FROM users WHERE username=?', (username,))
+    if cursor.fetchone():
         return make_response(('unauthorized', 401))
     else:
-        users[username] = password
+        cursor.execute('INSERT INTO users VALUES (?, ?)', (username, password))
+        connection.commit()
         session['username'] = username
         return make_response(('success', 201))
 
@@ -52,4 +67,5 @@ def register():
 app.secret_key = 'keep it secret, keep it safe'
 
 if __name__ == "__main__":
+    setupUsersTable()
     app.run(debug=True)

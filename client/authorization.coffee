@@ -13,4 +13,3 @@ Authorization =
         $.post '/register', { username, password }
             .done -> resolve { username }
             .fail -> reject()
-        

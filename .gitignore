@@ -4,3 +4,5 @@ AdventureBattle.iml
 
 server/static/app.js
 server/static/app.js.map
+
+.data.db
