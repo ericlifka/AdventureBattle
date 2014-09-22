@@ -1,6 +1,6 @@
-loginFormTemplate =
+authFormTemplate =
 """
-<div class='login-modal'>
+<div class='auth-modal'>
     <form id="loginForm" class="auth-form" role="form">
         <div id="error"></div>
         <input type="text" id="loginUsername" placeholder="username">
@@ -37,7 +37,7 @@ DomView =
             @switchToLogin()
 
     renderLoginForm: ->
-        @loginForm = $(loginFormTemplate)
+        @loginForm = $(authFormTemplate)
         @viewport.append @loginForm
         $("#loginUsername").focus()
 
