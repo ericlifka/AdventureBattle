@@ -37,7 +37,7 @@ html, body {
     padding-top: 10%;
 }
 
-#loginForm {
+.auth-form {
     display: block;
     background-color: #f9f9f9;
     padding: 20px;
@@ -46,7 +46,11 @@ html, body {
     box-shadow: 0px 0px 30px 5px #ccc;
 }
 
-#loginForm > input {
+.auth-form.hidden {
+    display: none;
+}
+
+.auth-form > input {
     width: 95%;
     padding: 10px 0 10px 10px;
     border-radius: 4px;
@@ -55,7 +59,7 @@ html, body {
     font-size: 14px;
 }
 
-#loginForm > button {
+.auth-form > button {
     padding: 6px 12px;
     border-radius: 5px;
     margin: 15px 0 0 0;
@@ -66,25 +70,25 @@ html, body {
     border: 1px solid #357ebd;
 }
 
-#loginForm > button:hover {
+.auth-form > button:hover {
     color: #fff;
     background-color: #3071a9;
     border-color: #285e8e;
     text-decoration: none;
 }
 
-#loginForm button.link {
+.auth-form button.link {
     background-color: transparent;
     border-color: transparent;
     color: #428bca;
 }
 
-#loginForm button.link:hover {
+.auth-form button.link:hover {
     text-decoration: underline;
     color: #2a6496;
 }
 
-#loginError {
+#error {
     display: none;
     font-weight: 700;
     color: #a94442;
@@ -92,6 +96,6 @@ html, body {
     text-align: center;
 }
 
-#loginError.visible {
+#error.visible {
     display: block;
 }
