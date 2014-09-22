@@ -34,7 +34,19 @@ def login():
         session['username'] = username
         return make_response(('success', 201))
     else:
-        return make_response(('Unauthorized', 401))
+        return make_response(('unauthorized', 401))
+
+@app.route("/register", methods=['POST'])
+def register():
+    username = request.form['username']
+    password = request.form['password']
+
+    if username in users:
+        return make_response(('unauthorized', 401))
+    else:
+        users[username] = password
+        session['username'] = username
+        return make_response(('success', 201))
 
 # putting secret key in source because TROLLOLOL:
 app.secret_key = 'keep it secret, keep it safe'
