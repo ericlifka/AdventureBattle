@@ -1,20 +1,12 @@
-import json
-import sqlite3
 from flask import Flask
 from flask import render_template
 from flask import request
 from flask import make_response
 from flask import session
-
-def setupUsersTable():
-    connection = sqlite3.connect('.data.db')
-    cursor = connection.cursor()
-
-    cursor.execute("CREATE TABLE IF NOT EXISTS users (username TEXT PRIMARY KEY, password TEXT)")
-    connection.commit()
+import json
+import authentication
 
 app = Flask(__name__)
-# users = {'test': '1234'}
 
 @app.route("/")
 def hello():
@@ -37,12 +29,9 @@ def login():
     username = request.form['username']
     password = request.form['password']
 
-    connection = sqlite3.connect('.data.db')
-    cursor = connection.cursor()
-    cursor.execute('SELECT * FROM users WHERE username=? AND password=?', (username, password))
-    if cursor.fetchone():
+    if authentication.verify_user_password(username, password):
         session['username'] = username
-        return make_response(('success', 201))
+        return make_response(('success', 200))
     else:
         return make_response(('unauthorized', 401))
 
@@ -51,21 +40,15 @@ def register():
     username = request.form['username']
     password = request.form['password']
 
-    connection = sqlite3.connect('.data.db')
-    cursor = connection.cursor()
-    print(username)
-    cursor.execute('SELECT * FROM users WHERE username=?', (username,))
-    if cursor.fetchone():
-        return make_response(('unauthorized', 401))
-    else:
-        cursor.execute('INSERT INTO users VALUES (?, ?)', (username, password))
-        connection.commit()
+    if authentication.create_user(username, password):
         session['username'] = username
         return make_response(('success', 201))
+    else:
+        return make_response(('unauthorized', 401))
 
 # putting secret key in source because TROLLOLOL:
 app.secret_key = 'keep it secret, keep it safe'
 
 if __name__ == "__main__":
-    setupUsersTable()
+    authentication.setup_users_table()
     app.run(debug=True)

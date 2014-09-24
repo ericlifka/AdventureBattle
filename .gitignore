@@ -6,3 +6,5 @@ server/static/app.js
 server/static/app.js.map
 
 .data.db
+
+*.pyc
