@@ -1,8 +1,11 @@
+import gevent
 import flask
 import json
 import authentication
+from flask.ext.socketio import SocketIO
 
 app = flask.Flask(__name__)
+socketio = SocketIO(app)
 
 @app.route("/")
 def hello():
