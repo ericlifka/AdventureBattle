@@ -2,10 +2,12 @@ import gevent
 import flask
 import json
 import authentication
-from flask.ext.socketio import SocketIO
+from flask.ext.socketio import SocketIO, emit
 
 app = flask.Flask(__name__)
+app.secret_key = 'keep it secret, keep it safe'
 socketio = SocketIO(app)
+
 
 @app.route("/")
 def hello():
@@ -45,9 +47,15 @@ def register():
     else:
         return flask.make_response(('unauthorized', 401))
 
-# putting secret key in source because TROLLOLOL:
-app.secret_key = 'keep it secret, keep it safe'
+@socketio.on('connect', namespace='/test')
+def test_connect():
+    emit('my response', {'data': 'Connected'})
+
+@socketio.on('disconnect', namespace='/test')
+def test_disconnect():
+    print('Client disconnected')
+
 
 if __name__ == "__main__":
     authentication.setup_users_table()
-    app.run(debug=True)
+    socketio.run(app)
