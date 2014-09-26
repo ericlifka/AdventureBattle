@@ -1,13 +1,22 @@
 import gevent
+from gevent import monkey
+monkey.patch_all()
+
 import flask
 import json
 import authentication
 from flask.ext.socketio import SocketIO, emit
+# from game_manager import GameManager
 
 app = flask.Flask(__name__)
 app.secret_key = 'keep it secret, keep it safe'
 socketio = SocketIO(app)
 
+# game_manager = None
+
+# def game_management_greenlet():
+#     global game_manager
+#     game_manager = GameManager(socketio)
 
 @app.route("/")
 def hello():
@@ -47,11 +56,12 @@ def register():
     else:
         return flask.make_response(('unauthorized', 401))
 
-@socketio.on('connect', namespace='/test')
+@socketio.on('connect')
 def test_connect():
-    emit('my response', {'data': 'Connected'})
+    print 'connection'
+    emit('testEvent', {'data': 'Connected'})
 
-@socketio.on('disconnect', namespace='/test')
+@socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
 

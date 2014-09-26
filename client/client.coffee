@@ -17,3 +17,6 @@ window.AdventureBattle = class AdventureBattle
                 DomView.showLogin().then authenticated
 
     setupGame: ->
+        @socket = io.connect()
+        @socket.on 'testEvent', (msg) ->
+            console.log "message received", msg
