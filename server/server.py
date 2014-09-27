@@ -59,11 +59,14 @@ def register():
 @socketio.on('connect')
 def test_connect():
     print 'connection'
-    emit('testEvent', {'data': 'Connected'})
 
 @socketio.on('disconnect')
 def test_disconnect():
     print('Client disconnected')
+
+@socketio.on('test-event')
+def test_event():
+    print 'receiving'
 
 
 if __name__ == "__main__":

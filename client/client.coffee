@@ -17,6 +17,10 @@ window.AdventureBattle = class AdventureBattle
                 DomView.showLogin().then authenticated
 
     setupGame: ->
-        @socket = io.connect()
+        @socket = io.connect 'http://localhost:5000'
+        window.setInterval ( =>
+            console.log 'emitting'
+            @socket.emit 'test-event'
+        ), 500
         @socket.on 'testEvent', (msg) ->
             console.log "message received", msg
