@@ -22,5 +22,5 @@ window.AdventureBattle = class AdventureBattle
             console.log 'emitting'
             @socket.emit 'test-event'
         ), 500
-        @socket.on 'testEvent', (msg) ->
+        @socket.on 'server-event', (msg) ->
             console.log "message received", msg

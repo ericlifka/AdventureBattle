@@ -69,6 +69,15 @@ def test_event():
     print 'receiving'
 
 
+def game_management_greenlet():
+    global socketio
+    while True:
+        socketio.emit('server-event')
+        print 'sending'
+        gevent.sleep(.2)
+
+
 if __name__ == "__main__":
     authentication.setup_users_table()
+    gevent.spawn(game_management_greenlet)
     socketio.run(app)
