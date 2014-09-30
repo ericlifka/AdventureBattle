@@ -36,3 +36,12 @@ window.AdventureBattle = class AdventureBattle
 #            console.log "message received", msg
 
     startGameLoop: ->
+        browserFrameHook = =>
+            @nextAnimationFrame()
+            requestAnimationFrame browserFrameHook
+
+        requestAnimationFrame browserFrameHook
+
+    nextAnimationFrame: ->
+        @renderer.render @stage
+        
