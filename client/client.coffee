@@ -18,9 +18,9 @@ window.AdventureBattle = class AdventureBattle
 
     setupGame: ->
         @socket = io.connect 'http://localhost:5000'
-        window.setInterval ( =>
-            console.log 'emitting'
-            @socket.emit 'test-event'
-        ), 500
-        @socket.on 'server-event', (msg) ->
-            console.log "message received", msg
+#        window.setInterval ( =>
+#            console.log 'emitting'
+#            @socket.emit 'test-event'
+#        ), 500
+#        @socket.on 'server-event', (msg) ->
+#            console.log "message received", msg

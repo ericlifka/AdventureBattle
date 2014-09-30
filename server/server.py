@@ -72,8 +72,8 @@ def test_event():
 def game_management_greenlet():
     global socketio
     while True:
-        socketio.emit('server-event')
-        print 'sending'
+        # socketio.emit('server-event')
+        # print 'sending'
         gevent.sleep(.2)
 
 
