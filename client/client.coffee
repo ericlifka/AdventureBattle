@@ -1,4 +1,5 @@
 window.AdventureBattle = class AdventureBattle
+    assetPaths: ['static/assets/wall.json']
     viewport: null
     player: null
 
@@ -19,12 +20,15 @@ window.AdventureBattle = class AdventureBattle
     setupGame: ->
         @setupPixi()
         @setupConnection()
-        @startGameLoop()
 
     setupPixi: ->
         @stage = new PIXI.Stage 0xf5f5f5
         @renderer = new PIXI.WebGLRenderer 1024, 576
         @viewport.append @renderer.view
+
+        loader = new PIXI.AssetLoader @assetPaths
+        loader.onComplete = => @startGameLoop()
+        loader.load()
 
     setupConnection: ->
         @socket = io.connect 'http://localhost:5000'
@@ -41,6 +45,11 @@ window.AdventureBattle = class AdventureBattle
             requestAnimationFrame browserFrameHook
 
         requestAnimationFrame browserFrameHook
+
+        slice1 = PIXI.Sprite.fromFrame("edge_01")
+        slice1.position.x = 32
+        slice1.position.y = 64
+        this.stage.addChild(slice1)
 
     nextAnimationFrame: ->
         @renderer.render @stage
