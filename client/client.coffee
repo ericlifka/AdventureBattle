@@ -44,4 +44,3 @@ window.AdventureBattle = class AdventureBattle
 
     nextAnimationFrame: ->
         @renderer.render @stage
-        
