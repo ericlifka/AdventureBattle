@@ -46,10 +46,17 @@ window.AdventureBattle = class AdventureBattle
 
         requestAnimationFrame browserFrameHook
 
-        slice1 = PIXI.Sprite.fromFrame("edge_01")
-        slice1.position.x = 32
-        slice1.position.y = 64
-        this.stage.addChild(slice1)
+        slice1 = PIXI.Sprite.fromFrame("edge_01").texture
+        slice2 = PIXI.Sprite.fromFrame("step_01").texture
+        clip = new PIXI.MovieClip [slice1, slice2]
+        clip.gotoAndPlay 0
+        clip.animationSpeed = .1
+
+        clip.position.x = 32
+        clip.position.y = 64
+        this.stage.addChild(clip)
 
     nextAnimationFrame: ->
         @renderer.render @stage
+#        @slice1.position.x += 1
+        console.log 'frame'
