@@ -1,5 +1,5 @@
 window.AdventureBattle = class AdventureBattle
-    assetPaths: ['static/assets/wall.json']
+    assetPaths: ['static/assets/wall.json', 'static/assets/32x32_map_tile v3.1.json']
     viewport: null
     player: null
 
@@ -54,7 +54,13 @@ window.AdventureBattle = class AdventureBattle
 
         clip.position.x = 32
         clip.position.y = 64
-        this.stage.addChild(clip)
+
+        grass1 = PIXI.Sprite.fromFrame "grass_01"
+        grass1.position.x = 200
+        grass1.position.y = 64
+
+        @stage.addChild clip
+        @stage.addChild grass1
 
     nextAnimationFrame: ->
         @renderer.render @stage
