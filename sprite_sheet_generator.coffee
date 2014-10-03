@@ -24,13 +24,13 @@ json =
         size:
             w: (width-1) * 32 + width
             h: (height-1) * 32 + height
-
+            
 for h in [1..height]
     for w in [1..width]
         console.log "h", h, "w", w
         x = (w-1) * 32 + w
         y = (h-1) * 32 + h
-        key = "#{translation[x]}#{pad(y)}"
+        key = "#{translation[w]}#{pad(h)}"
         json.frames[key] =
             frame: { x, y, w:32, h:32 }
             rotated: false
