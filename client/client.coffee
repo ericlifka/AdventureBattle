@@ -55,7 +55,7 @@ window.AdventureBattle = class AdventureBattle
         clip.position.x = 32
         clip.position.y = 64
 
-        grass1 = PIXI.Sprite.fromFrame "grass_01"
+        grass1 = PIXI.Sprite.fromFrame "U14"
         grass1.position.x = 200
         grass1.position.y = 64
 
