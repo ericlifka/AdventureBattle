@@ -88,24 +88,7 @@ window.AdventureBattle = class AdventureBattle
         # Sand
         @stage.addChild @setPosition 1, 4, @texture "E07"
 
-
         @startGameLoop()
-
-#        slice1 = PIXI.Sprite.fromFrame("edge_01").texture
-#        slice2 = PIXI.Sprite.fromFrame("step_01").texture
-#        clip = new PIXI.MovieClip [slice1, slice2]
-#        clip.gotoAndPlay 0
-#        clip.animationSpeed = .1
-#
-#        clip.position.x = 32
-#        clip.position.y = 64
-#
-#        grass1 = PIXI.Sprite.fromFrame "U14"
-#        grass1.position.x = 200
-#        grass1.position.y = 64
-#
-#        @stage.addChild clip
-#        @stage.addChild grass1
 
     setPosition: (x, y, texture) ->
         texture.position.x = x * 32
@@ -132,5 +115,3 @@ window.AdventureBattle = class AdventureBattle
 
     nextAnimationFrame: ->
         @renderer.render @stage
-#        @slice1.position.x += 1
-        console.log 'frame'
