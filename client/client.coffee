@@ -1,5 +1,5 @@
 window.AdventureBattle = class AdventureBattle
-    assetPaths: ['static/assets/wall.json', 'static/assets/32x32_map_tile v3.1.json']
+    assetPaths: ['static/assets/32x32_map_tile v3.1.json']
     viewport: null
     player: null
 
