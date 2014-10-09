@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>Adventure Battle</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="alignment">
+        <div class="viewport">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="{{ url_for('static', filename='lib/socket.io.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/jquery-2.1.1.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/rsvp-3.0.13.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='lib/pixi-1.6.0.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='scrolling.js') }}"></script>
+
+<script>
+    $(function () {
+        var game = new GameController($('.viewport'));
+        game.start();
+    });
+</script>
+
+</body>
+</html>

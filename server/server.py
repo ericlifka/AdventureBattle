@@ -22,6 +22,10 @@ socketio = SocketIO(app)
 def hello():
     return flask.render_template('index.html')
 
+@app.route("/scrolling")
+def scrolling():
+    return flask.render_template('scrolling.html')
+
 @app.route("/session", methods=['GET'])
 def check_session():
     if 'username' not in flask.session:
