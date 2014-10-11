@@ -9,6 +9,7 @@ class LevelController
         @setInitialPlayerPosition()
 
         @addPlatformsToStage()
+        @player.addToStage @stage
 
     update: (elapsedTime) ->
 
