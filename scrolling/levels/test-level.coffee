@@ -8,3 +8,6 @@ level_descriptions['test-level'] =
             height: 500
         }
     ]
+    startingPosition:
+        x: 20
+        y: 500
