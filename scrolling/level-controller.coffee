@@ -13,8 +13,8 @@ class LevelController
 
     update: (elapsedTime, inputState) ->
 
-    render: (renderer) ->
-        renderer.render @stage
+    getStage: ->
+        @stage
 
     setInitialPlayerPosition: ->
         @player.jumpToPosition @description.startingPosition

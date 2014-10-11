@@ -22,7 +22,7 @@ window.GameController = class GameController
         inputState = @input.getFrameState()
 
         @level.update elapsed, inputState
-        @level.render @renderer
+        @renderer.render @level.getStage()
 
     elapsedSinceLastFrame: ->
         now = Date.now()
