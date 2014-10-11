@@ -4,6 +4,9 @@ window.GameController = class GameController
         @renderer = new PIXI.WebGLRenderer 1024, 576
         @viewport.append @renderer.view
 
+        @level = new LevelController()
+        @level.load "test-level"
+
     start: ->
         browserFrameHook = =>
             @nextAnimationFrame()
