@@ -5,3 +5,7 @@ class LevelController
 
     load: (levelIdentifier) ->
         @description = level_descriptions[levelIdentifier]
+        @setInitialPlayerPosition()
+
+    setInitialPlayerPosition: ->
+        @player.jumpToPosition @description.startingPosition
