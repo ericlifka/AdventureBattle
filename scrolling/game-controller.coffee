@@ -13,7 +13,16 @@ window.GameController = class GameController
             @nextAnimationFrame()
             requestAnimationFrame browserFrameHook
 
+        @lastTimestamp = Date.now()
         requestAnimationFrame browserFrameHook
 
     nextAnimationFrame: ->
+        elapsed = @elapsedSinceLastFrame()
+
         @renderer.render @stage
+
+    elapsedSinceLastFrame: ->
+        now = Date.now()
+        elapsed = now - @lastTimestamp
+        @lastTimestamp = now
+        elapsed
