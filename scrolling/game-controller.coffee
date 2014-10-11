@@ -18,7 +18,7 @@ window.GameController = class GameController
 
     nextAnimationFrame: ->
         elapsed = @elapsedSinceLastFrame()
-
+        @level.update elapsed
         @renderer.render @stage
 
     elapsedSinceLastFrame: ->

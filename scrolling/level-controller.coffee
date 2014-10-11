@@ -7,5 +7,8 @@ class LevelController
         @description = level_descriptions[levelIdentifier]
         @setInitialPlayerPosition()
 
+    update: (elapsedTime) ->
+
+
     setInitialPlayerPosition: ->
         @player.jumpToPosition @description.startingPosition
