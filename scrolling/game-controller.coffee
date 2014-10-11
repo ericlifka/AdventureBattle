@@ -1,5 +1,7 @@
 window.GameController = class GameController
     constructor: (@viewport) ->
+        @input = new InputController()
+
         @renderer = new PIXI.WebGLRenderer 1024, 576
         @viewport.append @renderer.view
 
@@ -17,7 +19,9 @@ window.GameController = class GameController
 
     nextAnimationFrame: ->
         elapsed = @elapsedSinceLastFrame()
-        @level.update elapsed
+        inputState = @input.getFrameState()
+
+        @level.update elapsed, inputState
         @level.render @renderer
 
     elapsedSinceLastFrame: ->

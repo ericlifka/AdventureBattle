@@ -11,7 +11,7 @@ class LevelController
         @addPlatformsToStage()
         @player.addToStage @stage
 
-    update: (elapsedTime) ->
+    update: (elapsedTime, inputState) ->
 
     render: (renderer) ->
         renderer.render @stage
