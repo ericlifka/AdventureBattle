@@ -9,8 +9,8 @@ class PlayerController
     xVelocity: 0
     yVelocity: 0
 
-    accelerationStep: 30
-    accelerationCap: 7
+    accelerationStep: 1000
+    accelerationCap: 400
 
     hitBox: null
 
@@ -65,4 +65,8 @@ class PlayerController
         else
             @slow timeRatio
 
-        @hitBox.position.x += @xVelocity
+        @updatePosition timeRatio
+
+    updatePosition: (timeRatio) ->
+        @hitBox.position.x += @xVelocity * timeRatio
+
