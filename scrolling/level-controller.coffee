@@ -1,6 +1,9 @@
 level_descriptions = level_descriptions or { }
 
 class LevelController
+    player: null
+    stage: null
+
     constructor: (@player) ->
         @stage = new PIXI.Stage 0xf5f5f5
 
@@ -12,6 +15,11 @@ class LevelController
         @player.addToStage @stage
 
     update: (elapsedTime, inputState) ->
+        if inputState.right
+            @player.moveRight()
+
+        if inputState.left
+            @player.moveLeft()
 
     getStage: ->
         @stage

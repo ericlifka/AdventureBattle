@@ -6,6 +6,8 @@ class PlayerController
     xPosition: 0
     yPosition: 0
 
+    hitBox: null
+
     constructor: ->
 
     jumpToPosition: (position) ->
@@ -18,3 +20,9 @@ class PlayerController
         @hitBox.drawRect @xPosition, @yPosition, @hitBoxWidth, @hitBoxHeight
 
         stage.addChild @hitBox
+
+    moveRight: ->
+        @hitBox.position.x += 1
+
+    moveLeft: ->
+        @hitBox.position.x -= 1
