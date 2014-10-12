@@ -17,3 +17,4 @@ class InputController
         right: @keyCache['D']
         up: @keyCache['W']
         down: @keyCache['S']
+        jump: @keyCache[' ']
