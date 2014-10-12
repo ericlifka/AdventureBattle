@@ -9,8 +9,8 @@ class PlayerController
     xVelocity: 0
     yVelocity: 0
 
-    accelerationStep: 0.2
-    accelerationCap: 5
+    accelerationStep: 30
+    accelerationCap: 7
 
     hitBox: null
 
@@ -27,22 +27,22 @@ class PlayerController
 
         stage.addChild @hitBox
 
-    accelerateRight: ->
-        @xVelocity += @accelerationStep
+    accelerateRight: (timeRatio) ->
+        @xVelocity += @accelerationStep * timeRatio
         @capVelocity()
 
-    accelerateLeft: ->
-        @xVelocity -= @accelerationStep
+    accelerateLeft: (timeRatio) ->
+        @xVelocity -= @accelerationStep * timeRatio
         @capVelocity()
 
-    slow: ->
+    slow: (timeRatio) ->
         if @xVelocity < 0
-            @xVelocity += @accelerationStep
+            @xVelocity += @accelerationStep * timeRatio
             if @xVelocity > 0
                 @xVelocity = 0
 
         else if @xVelocity > 0
-            @xVelocity -= @accelerationStep
+            @xVelocity -= @accelerationStep * timeRatio
             if @xVelocity < 0
                 @xVelocity = 0
 
@@ -54,13 +54,15 @@ class PlayerController
             @xVelocity = @accelerationCap
 
     update: (elapsedTime, inputState) ->
+        timeRatio = elapsedTime / 1000
+
         if inputState.right
-            @accelerateRight()
+            @accelerateRight timeRatio
 
         else if inputState.left
-            @accelerateLeft()
+            @accelerateLeft timeRatio
 
         else
-            @player.slow()
+            @slow timeRatio
 
         @hitBox.position.x += @xVelocity
