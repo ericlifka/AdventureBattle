@@ -27,11 +27,11 @@ class PlayerController
 
         stage.addChild @hitBox
 
-    moveRight: ->
+    accelerateRight: ->
         @xVelocity += @accelerationStep
         @capVelocity()
 
-    moveLeft: ->
+    accelerateLeft: ->
         @xVelocity -= @accelerationStep
         @capVelocity()
 
@@ -53,5 +53,14 @@ class PlayerController
         if @xVelocity > @accelerationCap
             @xVelocity = @accelerationCap
 
-    update: ->
+    update: (elapsedTime, inputState) ->
+        if inputState.right
+            @accelerateRight()
+
+        else if inputState.left
+            @accelerateLeft()
+
+        else
+            @player.slow()
+
         @hitBox.position.x += @xVelocity

@@ -15,16 +15,7 @@ class LevelController
         @player.addToStage @stage
 
     update: (elapsedTime, inputState) ->
-        if inputState.right
-            @player.moveRight()
-
-        else if inputState.left
-            @player.moveLeft()
-
-        else
-            @player.slow()
-
-        @player.update elapsedTime
+        @player.update elapsedTime, inputState
 
     getStage: ->
         @stage
