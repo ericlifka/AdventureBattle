@@ -9,6 +9,7 @@ class PlayerController
     xVelocity: 0
     yVelocity: 0
 
+    jumpAcceleration: 500
     yAccelerationStep: 1000
     xAccelerationStep: 1000
     xAccelerationCap: 400
@@ -27,6 +28,26 @@ class PlayerController
         @hitBox.drawRect @xPosition, @yPosition, @hitBoxWidth, @hitBoxHeight
 
         stage.addChild @hitBox
+
+    update: (elapsedTime, inputState) ->
+        timeRatio = elapsedTime / 1000
+
+        if inputState.right
+            @accelerateRight timeRatio
+        else if inputState.left
+            @accelerateLeft timeRatio
+        else
+            @slow timeRatio
+
+        if inputState.jump and not @jumping
+            @jumping = true
+            @yVelocity += @jumpAcceleration
+
+        if @jumping
+            @accelerateDown timeRatio
+            @checkFloorCollision timeRatio
+
+        @updatePosition timeRatio
 
     accelerateRight: (timeRatio) ->
         @xVelocity += @xAccelerationStep * timeRatio
@@ -57,29 +78,16 @@ class PlayerController
         if @xVelocity > @xAccelerationCap
             @xVelocity = @xAccelerationCap
 
-    update: (elapsedTime, inputState) ->
-        timeRatio = elapsedTime / 1000
-
-        if inputState.right
-            @accelerateRight timeRatio
-
-        else if inputState.left
-            @accelerateLeft timeRatio
-
-        else
-            @slow timeRatio
-
-        if inputState.jump and not @jumping
-            console.log 'jumping'
-            @jumping = true
-            @yVelocity += 500
-
-        if @jumping
-            @accelerateDown timeRatio
-
-        @updatePosition timeRatio
-
     updatePosition: (timeRatio) ->
         @hitBox.position.x += @xVelocity * timeRatio
         @hitBox.position.y -= @yVelocity * timeRatio
 
+    checkFloorCollision: (timeRatio) ->
+        y = @hitBox.position.y
+        yStep = y - @yVelocity * timeRatio
+        console.log y, yStep
+
+        if y < 0 and yStep >= 0
+            @jumping = false
+            @yVelocity = 0
+            @hitBox.position.y = 0
