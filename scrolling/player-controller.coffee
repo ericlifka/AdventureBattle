@@ -9,8 +9,9 @@ class PlayerController
     xVelocity: 0
     yVelocity: 0
 
-    accelerationStep: 1000
-    accelerationCap: 400
+    yAccelerationStep: 1000
+    xAccelerationStep: 1000
+    xAccelerationCap: 400
 
     hitBox: null
 
@@ -28,30 +29,33 @@ class PlayerController
         stage.addChild @hitBox
 
     accelerateRight: (timeRatio) ->
-        @xVelocity += @accelerationStep * timeRatio
+        @xVelocity += @xAccelerationStep * timeRatio
         @capVelocity()
 
     accelerateLeft: (timeRatio) ->
-        @xVelocity -= @accelerationStep * timeRatio
+        @xVelocity -= @xAccelerationStep * timeRatio
         @capVelocity()
+
+    accelerateDown: (timeRatio) ->
+        @yVelocity -= @yAccelerationStep * timeRatio
 
     slow: (timeRatio) ->
         if @xVelocity < 0
-            @xVelocity += @accelerationStep * timeRatio
+            @xVelocity += @xAccelerationStep * timeRatio
             if @xVelocity > 0
                 @xVelocity = 0
 
         else if @xVelocity > 0
-            @xVelocity -= @accelerationStep * timeRatio
+            @xVelocity -= @xAccelerationStep * timeRatio
             if @xVelocity < 0
                 @xVelocity = 0
 
     capVelocity: ->
-        if @xVelocity < -@accelerationCap
-            @xVelocity = -@accelerationCap
+        if @xVelocity < -@xAccelerationCap
+            @xVelocity = -@xAccelerationCap
 
-        if @xVelocity > @accelerationCap
-            @xVelocity = @accelerationCap
+        if @xVelocity > @xAccelerationCap
+            @xVelocity = @xAccelerationCap
 
     update: (elapsedTime, inputState) ->
         timeRatio = elapsedTime / 1000
@@ -65,8 +69,17 @@ class PlayerController
         else
             @slow timeRatio
 
+        if inputState.jump and not @jumping
+            console.log 'jumping'
+            @jumping = true
+            @yVelocity += 500
+
+        if @jumping
+            @accelerateDown timeRatio
+
         @updatePosition timeRatio
 
     updatePosition: (timeRatio) ->
         @hitBox.position.x += @xVelocity * timeRatio
+        @hitBox.position.y -= @yVelocity * timeRatio
 
