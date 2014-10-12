@@ -18,8 +18,13 @@ class LevelController
         if inputState.right
             @player.moveRight()
 
-        if inputState.left
+        else if inputState.left
             @player.moveLeft()
+
+        else
+            @player.slow()
+
+        @player.update elapsedTime
 
     getStage: ->
         @stage
