@@ -9,6 +9,9 @@ class PlayerController
     xVelocity: 0
     yVelocity: 0
 
+    accelerationStep: 0.2
+    accelerationCap: 5
+
     hitBox: null
 
     constructor: ->
@@ -25,26 +28,30 @@ class PlayerController
         stage.addChild @hitBox
 
     moveRight: ->
-        @xVelocity += 1
+        @xVelocity += @accelerationStep
         @capVelocity()
 
     moveLeft: ->
-        @xVelocity -= 1
+        @xVelocity -= @accelerationStep
         @capVelocity()
 
     slow: ->
         if @xVelocity < 0
-            @xVelocity += 1
+            @xVelocity += @accelerationStep
+            if @xVelocity > 0
+                @xVelocity = 0
 
         else if @xVelocity > 0
-            @xVelocity -= 1
+            @xVelocity -= @accelerationStep
+            if @xVelocity < 0
+                @xVelocity = 0
 
     capVelocity: ->
-        if @xVelocity < -4
-            @xVelocity = -4
+        if @xVelocity < -@accelerationCap
+            @xVelocity = -@accelerationCap
 
-        if @xVelocity > 4
-            @xVelocity = 4
+        if @xVelocity > @accelerationCap
+            @xVelocity = @accelerationCap
 
     update: ->
         @hitBox.position.x += @xVelocity
