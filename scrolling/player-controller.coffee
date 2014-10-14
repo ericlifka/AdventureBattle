@@ -6,6 +6,10 @@ class PlayerController
     xPosition: 0
     yPosition: 0
 
+    # The offset of the box's origin point from the stage's origin point
+    xOffset: 0
+    yOffset: 0
+
     xVelocity: 0
     yVelocity: 0
 
@@ -21,12 +25,14 @@ class PlayerController
     jumpToPosition: (position) ->
         @xPosition = position.x
         @yPosition = position.y - @hitBoxHeight
+        @xOffset = position.x
+        @yOffset = position.y - @hitBoxHeight
 
     addToStage: (stage) ->
         @hitBox = new PIXI.Graphics()
         @hitBox.beginFill 0xFF0000
-        @hitBox.drawRect @xPosition, @yPosition, @hitBoxWidth, @hitBoxHeight
-
+        @hitBox.drawRect @xOffset, @yOffset, @hitBoxWidth, @hitBoxHeight
+        window.box = @hitBox
         stage.addChild @hitBox
 
     update: (elapsedTime, inputState) ->
@@ -48,6 +54,7 @@ class PlayerController
             @checkFloorCollision timeRatio
 
         @updatePosition timeRatio
+        @updateSprite()
 
     accelerateRight: (timeRatio) ->
         @xVelocity += @xAccelerationStep * timeRatio
@@ -79,15 +86,19 @@ class PlayerController
             @xVelocity = @xAccelerationCap
 
     updatePosition: (timeRatio) ->
-        @hitBox.position.x += @xVelocity * timeRatio
-        @hitBox.position.y -= @yVelocity * timeRatio
+        @xPosition += @xVelocity * timeRatio
+        @yPosition -= @yVelocity * timeRatio
+
+    updateSprite: ->
+        @hitBox.position.x = @xPosition - @xOffset
+        @hitBox.position.y = @yPosition - @yOffset
 
     checkFloorCollision: (timeRatio) ->
-        y = @hitBox.position.y
+        y = @yPosition
         yStep = y - @yVelocity * timeRatio
-        console.log y, yStep
+        platformHeight = 500 - @hitBoxHeight
 
-        if y < 0 and yStep >= 0
+        if y < platformHeight and yStep >= platformHeight
             @jumping = false
             @yVelocity = 0
-            @hitBox.position.y = 0
+            @yPosition = platformHeight
